@@ -1,11 +1,12 @@
-import { StudentPortalService } from "../services/studentPortal.service.js";
+import { StudentService } from "../services/student.service.js";
 
-export class StudentPortalController {
-  // GET /students/:MaHocSinh/classes?MaHocKy=
-  static async getMyClasses(req, res, next) {
+export class StudentController {
+  static async meClasses(req, res, next) {
     try {
-      const { MaHocSinh } = req.params;
-      const data = await StudentPortalService.getMyClasses({
+      const MaHocSinh = req.user?.MaHocSinh;
+      if (!MaHocSinh) throw { status: 403, message: "Tài khoản không liên kết học sinh" };
+
+      const data = await StudentService.getMyClasses({
         MaHocSinh,
         MaHocKy: req.query.MaHocKy ? Number(req.query.MaHocKy) : null,
       });
@@ -13,14 +14,15 @@ export class StudentPortalController {
     } catch (e) { next(e); }
   }
 
-  // GET /students/:MaHocSinh/scores?MaHocKy=
-  static async getMyScoresBySemester(req, res, next) {
+  static async meScores(req, res, next) {
     try {
-      const { MaHocSinh } = req.params;
+      const MaHocSinh = req.user?.MaHocSinh;
+      if (!MaHocSinh) throw { status: 403, message: "Tài khoản không liên kết học sinh" };
+
       const { MaHocKy } = req.query;
       if (!MaHocKy) throw { status: 400, message: "MaHocKy is required" };
 
-      const data = await StudentPortalService.getMyScoresBySemester({
+      const data = await StudentService.getMyScoresBySemester({
         MaHocSinh,
         MaHocKy: Number(MaHocKy),
       });

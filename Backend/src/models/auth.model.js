@@ -31,9 +31,11 @@ export const NguoiDung = sequelize.define(
     MaNguoiDung: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     TenDangNhap: { type: DataTypes.STRING(50), allowNull: false, unique: true },
     MatKhau: { type: DataTypes.STRING(255), allowNull: false },
-    HoVaTen: { type: DataTypes.STRING(100), allowNull: true },
-    Email: { type: DataTypes.STRING(100), allowNull: true },
+    HoVaTen: DataTypes.STRING(100),
+    Email: DataTypes.STRING(100),
     MaNhomNguoiDung: { type: DataTypes.INTEGER, allowNull: false },
+    MaHocSinh: { type: DataTypes.STRING(100), allowNull: true },
   },
   { tableName: "NGUOIDUNG", timestamps: false }
 );
+

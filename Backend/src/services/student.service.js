@@ -3,7 +3,7 @@ import { HocSinhLop, Lop } from "../models/student.model.js";
 import { BangDiemMon, CTBangDiemMonHocSinh } from "../models/gradebook.model.js";
 import { MonHoc } from "../models/academic.model.js";
 
-export class StudentPortalService {
+export class StudentService {
   static async getMyClasses({ MaHocSinh, MaHocKy = null }) {
     const where = { MaHocSinh };
     if (MaHocKy != null) where.MaHocKy = MaHocKy;

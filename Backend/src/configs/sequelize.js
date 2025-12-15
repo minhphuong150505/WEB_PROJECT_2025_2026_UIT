@@ -23,7 +23,8 @@ const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
   },
   define: {
     timestamps: true,
-    underscored: true,
+    underscored: false,      
+    freezeTableName: true,
     charset: 'utf8mb4',
     collate: 'utf8mb4_unicode_ci'
   }

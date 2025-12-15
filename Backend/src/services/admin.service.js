@@ -1,5 +1,4 @@
 import { Op } from "sequelize";
-
 import { KhoiLop, MonHoc, HocKy, NamHoc, LoaiHinhKiemTra } from "../models/academic.model.js";
 import { Lop } from "../models/student.model.js";
 import { ThamSo } from "../models/config.model.js";
@@ -11,22 +10,19 @@ export class AdminService {
     return await KhoiLop.create({ TenKL, SoLop });
   }
 
-  static async updateKhoiLop(MaKL, { TenKL, CapLop, SoLop }) {
+  static async updateKhoiLop(MaKL, { TenKL,  SoLop }) {
     const row = await KhoiLop.findByPk(MaKL);
     if (!row) throw { status: 404, message: "KhoiLop not found" };
     await row.update({
       TenKL: TenKL ?? row.TenKL,
-      CapLop: CapLop ?? row.CapLop,
       SoLop: SoLop ?? row.SoLop,
     });
     return row;
   }
 
   static async deleteKhoiLop(MaKL) {
-    // Nếu đã có lớp thuộc khối -> bạn có thể chặn
     const countLop = await Lop.count({ where: { MaKhoiLop: MaKL } });
     if (countLop > 0) throw { status: 400, message: "Không thể xoá khối vì đang có lớp thuộc khối" };
-
     const row = await KhoiLop.findByPk(MaKL);
     if (!row) throw { status: 404, message: "KhoiLop not found" };
     await row.destroy();
@@ -80,9 +76,9 @@ export class AdminService {
   }
 
   // ===== HOC KY =====
-  static async createHocKy({ TenHK, MaNamHoc = null, NgayBatDau = null, NgayKetThuc = null, TrangThai = "Planned" }) {
+  static async createHocKy({ TenHK, MaNamHoc = null, NgayBatDau = null, NgayKetThuc = null }) {
     if (!TenHK) throw { status: 400, message: "TenHK is required" };
-    return await HocKy.create({ TenHK, MaNamHoc, NgayBatDau, NgayKetThuc, TrangThai });
+    return await HocKy.create({ TenHK, MaNamHoc, NgayBatDau, NgayKetThuc });
   }
 
   static async updateHocKy(MaHK, payload) {
@@ -92,8 +88,7 @@ export class AdminService {
       TenHK: payload.TenHK ?? row.TenHK,
       MaNamHoc: payload.MaNamHoc ?? row.MaNamHoc,
       NgayBatDau: payload.NgayBatDau ?? row.NgayBatDau,
-      NgayKetThuc: payload.NgayKetThuc ?? row.NgayKetThuc,
-      TrangThai: payload.TrangThai ?? row.TrangThai,
+      NgayKetThuc: payload.NgayKetThuc ?? row.NgayKetThuc
     });
     return row;
   }
@@ -163,7 +158,6 @@ export class AdminService {
     return await LoaiHinhKiemTra.findAll({ order: [["MaLHKT", "ASC"]] });
   }
 
-  // ===== THEM LOP =====
   static async createLop({ TenLop, MaKhoiLop, MaNamHoc, SiSo = null }) {
     if (!TenLop) throw { status: 400, message: "TenLop is required" };
     if (MaKhoiLop == null || MaNamHoc == null) throw { status: 400, message: "MaKhoiLop & MaNamHoc are required" };

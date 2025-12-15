@@ -70,12 +70,12 @@ export function initAssociations() {
   Lop.hasMany(BaoCaoTKHK, { foreignKey: "MaLop" });
 
   // NHOMNGUOIDUNG -> QUYEN
-  NhomNguoiDung.belongsTo(Quyen, { foreignKey: "MaQuyen" });
-  Quyen.hasMany(NhomNguoiDung, { foreignKey: "MaQuyen" });
+  NhomNguoiDung.belongsTo(Quyen, { foreignKey: "MaQuyen", as: "quyen" });
+  Quyen.hasMany(NhomNguoiDung, { foreignKey: "MaQuyen", as: "nhoms" });
 
-  // NGUOIDUNG -> NHOMNGUOIDUNG
-  NguoiDung.belongsTo(NhomNguoiDung, { foreignKey: "MaNhomNguoiDung" });
-  NhomNguoiDung.hasMany(NguoiDung, { foreignKey: "MaNhomNguoiDung" });
+// NGUOIDUNG -> NHOMNGUOIDUNG
+  NguoiDung.belongsTo(NhomNguoiDung, { foreignKey: "MaNhomNguoiDung", as: "nhom" });
+  NhomNguoiDung.hasMany(NguoiDung, { foreignKey: "MaNhomNguoiDung", as: "users" });
 
   // THAMSO -> NAMHOC
   ThamSo.belongsTo(NamHoc, { foreignKey: "MaNamHoc" });

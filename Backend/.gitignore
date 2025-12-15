@@ -149,3 +149,6 @@ vite.config.ts.timestamp-*
 /sql/
 /database/
 /db_dumps/
+
+# Ignore Postman collection folder
+postman/
