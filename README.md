@@ -1,4 +1,4 @@
-## SE104 - Hệ thống quản lý học sinh (SE104-NMCNPM)
+## Hệ thống quản lý học sinh (SE104-NMCNPM)
 
 Đây là repo chứa một ứng dụng quản lý học sinh gồm Backend (API) và Frontend (UI) được phát triển cho môn học. Ứng dụng cho phép quản lý tài khoản người dùng (học sinh/giáo viên/admin), phân công giáo viên, import danh sách học sinh từ file CSV/XLSX và xuất báo cáo cơ bản.
 
