@@ -80,6 +80,5 @@ Mở trình duyệt vào `http://localhost:5173` (mặc định của Vite) và 
 3. Vào **Teacher Dashboard → Quản lý tài khoản HS** → upload file CSV/XLSX.
 4. Quan sát báo cáo import (tổng, thành công, thất bại; lỗi theo hàng).
 
-Nếu gặp lỗi SQL liên quan tới cột (ví dụ `Unknown column 'TuoiToiDa'`), đặt `NODE_ENV=development` trong `Backend/.env` để backend trả thêm `sqlError` và `stack` trong response giúp debug nhanh.
 
 ```
